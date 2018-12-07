@@ -11,18 +11,18 @@ namespace MyGame
     {
         public Mars(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
+            _image = Image.FromFile("Mars.jpg");
         }
 
         public override void Draw()
         {
-            Image newImage = Image.FromFile("Mars.jpg");
-            Game.Buffer.Graphics.DrawImage(newImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(_image, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
 
         public override void Update()
         {
             Pos.X = Pos.X + Dir.X; //поменял на +, как и было рекомедовано в комментарии
-            if (Pos.X > Game.Width) Pos.X = 0 + Size.Width;
+            if (Pos.X > Game.Width) Pos.X = Size.Width;
         }
     }
 }
