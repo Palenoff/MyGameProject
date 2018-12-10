@@ -11,14 +11,18 @@ namespace MyGame
     {
         public Cat(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            _image = Image.FromFile("Cat.jpg");
             Size.Width += 30;
             Size.Height += 30;
         }
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(_image, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(Game.Images["Cat"], Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+
+        public override void Regeneration()
+        {
+            throw new NotImplementedException();
         }
 
         public override void Update()

@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asteroid.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Cat.cs" />
     <Compile Include="GameObjectException.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ICollision.cs" />
     <Compile Include="Mars.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    class Ellipse : BaseObject
+    class Ellipse : Asteroid
     {
         public Ellipse(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
@@ -21,7 +21,7 @@ namespace MyGame
         public override void Update()
         {
             Pos.X = Pos.X + Dir.X; //поменял на +, как и было рекомедовано в комментарии
-            if (Pos.X < 0) Pos.X = Game.Width + Size.Width;
+            if (Pos.X < -Size.Width) Pos.X = Game.Width + Size.Width;
         }
     }
 }
