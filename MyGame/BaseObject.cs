@@ -13,6 +13,7 @@ namespace MyGame
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
+        public delegate void Message();
         public BaseObject(Point pos, Point dir, Size size)
         {
             Pos = pos;
