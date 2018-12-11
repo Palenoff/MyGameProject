@@ -2,7 +2,7 @@
 
 namespace MyGame
 {
-    class Asteroid: BaseObject
+    public class Asteroid: BaseObject
     {
         public int Power { get; set; }
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)

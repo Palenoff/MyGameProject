@@ -50,10 +50,13 @@
     <Compile Include="BaseObject.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Cat.cs" />
+    <Compile Include="Action.cs" />
+    <Compile Include="Healing.cs" />
     <Compile Include="GameObjectException.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="ICollision.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Mars.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

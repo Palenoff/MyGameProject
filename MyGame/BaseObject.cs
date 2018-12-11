@@ -8,12 +8,16 @@ using System.Windows.Forms;
 
 namespace MyGame
 {
-    abstract class BaseObject: ICollision
+    public abstract class BaseObject: ICollision
     {
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
         public delegate void Message();
+        //public delegate string WriteWhatAndWhere(Asteroid asteroid, Point point);
+        //public delegate string Write(int n);
+        //public delegate string WriteWhere(Point point);
+        public delegate void Write(string str);
         public BaseObject(Point pos, Point dir, Size size)
         {
             Pos = pos;

@@ -23,5 +23,10 @@ namespace MyGame
             Pos.X = Pos.X + Dir.X; //поменял на +, как и было рекомедовано в комментарии
             if (Pos.X < -Size.Width) Pos.X = Game.Width + Size.Width;
         }
+
+        public override string ToString()
+        {
+            return $"Какая-то синяя планета";
+        }
     }
 }

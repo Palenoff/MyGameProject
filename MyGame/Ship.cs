@@ -10,12 +10,35 @@ namespace MyGame
     class Ship : BaseObject
     {
         private int _energy = 100;
+        private int _points = 0;
         public int Energy => _energy;
-        public static event Message MessageDie;
+        public int Points => _points;
 
-        public void EnergyLow(int n)
+        public static event Message MessageDie;
+        public static event Write WriteDecreaseEnergy;
+        public static event Write WriteIncreaseEnergy;
+        public static event Write WriteIncreasePoints;
+        public static event Write WriteCollide;
+        public static event Write WriteHeal;
+        public static event Write WriteDie;
+
+
+
+        public void Energy_Down(int n)
         {
             _energy -= n;
+            WriteDecreaseEnergy?.Invoke(Action.ShipLostEnergy(n));
+        }
+        public void Energy_Up(int n)
+        {
+            _energy += n;
+            WriteIncreaseEnergy?.Invoke(Action.ShipGotEnergy(n));
+            WriteHeal?.Invoke(Action.ShipHealed(Pos));
+        }
+        public void Points_Up(int n)
+        {
+            _points += n;
+            WriteIncreasePoints(Action.ShipGotPoints(n));
         }
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
@@ -33,11 +56,27 @@ namespace MyGame
         }
         public void Down()
         {
-            if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+            if (Pos.Y + Size.Height < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+        }
+        public void Left()
+        {
+            if (Pos.X > 0) Pos.X = Pos.X - Dir.X;
+        }
+        public void Right()
+        {
+            if (Pos.X + Size.Width < Game.Width) Pos.X = Pos.X + Dir.X;
         }
         public void Die()
         {
             MessageDie?.Invoke();
+            WriteDie?.Invoke(Action.ShipDied());
+            Game.CloseStream();
+        }
+        public void Collide(Random rnd, Asteroid asteroid)
+        {
+            Energy_Down(rnd.Next(1, 10));
+            Points_Up(rnd.Next(0, 1000));
+            WriteCollide?.Invoke(Action.ShipCollided(asteroid,Pos));
         }
 
         public override void Regeneration()
@@ -45,6 +84,11 @@ namespace MyGame
             throw new NotImplementedException();
         }
 
+        public override string ToString()
+        {
+            return $"Космический корабль";
+        }
+        
     }
 
 }
