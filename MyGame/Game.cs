@@ -14,10 +14,13 @@ namespace MyGame
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
         private static BaseObject[] _objs;
-        private static Bullet _bullet;
-        private static Asteroid[] _asteroids;
+        //private static Bullet _bullet;
+        private static List<Bullet> _bullets = new List<Bullet>();
+        private static List<Asteroid> _asteroids;
+        private static int n_asteroids;
         private static Healing[] _healings;
         public static Dictionary<string, Image> Images;
+        public static Dictionary<string, Image> Images_asteroids;
         private static Ship _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(100, 60));
         private static Timer _timer = new Timer();
         public static Random Rnd = new Random();
@@ -40,7 +43,9 @@ namespace MyGame
 
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            //if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+
+            if (e.KeyCode == Keys.Space) _bullets.Add(new Bullet(new Point(Rnd.Next(0,Width), Rnd.Next(0,Height)), new Point(4, 0), new Size(4, 1)));
             if (e.KeyCode == Keys.Up) _ship.Up();
             if (e.KeyCode == Keys.Down) _ship.Down();
             if (e.KeyCode == Keys.Left) _ship.Left();
@@ -77,7 +82,9 @@ namespace MyGame
                     throw new ArgumentOutOfRangeException("Height", "Высота слишком большая");
                 // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
                 Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
-                ImagesInit();
+                Images = ImagesInit(@"..\..\Images");
+                Images_asteroids = ImagesInit(@"..\..\Images\Asteroids");
+                n_asteroids = Rnd.Next(1, Images_asteroids.Count);
                 Load();
                 form.KeyDown += Form_KeyDown;
             }
@@ -106,13 +113,25 @@ namespace MyGame
 
 
 
-        private static void ImagesInit()
+        private static Dictionary<string,Image> ImagesInit(string path)
         {
-            string path = @"..\..\Images";
-            Images = new Dictionary<string, Image>();
+            Dictionary<string, Image> collection = new Dictionary<string, Image>();
             var files = Directory.GetFiles(path);
             foreach (var file in files)
-                Images[Path.GetFileNameWithoutExtension(file)] = Image.FromFile(file);
+                collection[Path.GetFileNameWithoutExtension(file)] = Image.FromFile(file);
+            return collection;
+        }
+
+        private static void AsteroidsInit()
+        {
+            var rnd = new Random();
+            for (var i = 0; i < n_asteroids; i++)
+            {
+                int r = rnd.Next(5, 200);
+                int index_image = rnd.Next(1,Images_asteroids.Count);
+                _asteroids.Add(new Asteroid(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r / 5, r), new Size(Images_asteroids.Values.ElementAt(index_image).Width / 10, Images_asteroids.Values.ElementAt(index_image).Height / 10), Images_asteroids.Keys.ElementAt(index_image)));
+            }
+            n_asteroids += 1;
         }
 
         public static void Draw()
@@ -128,7 +147,7 @@ namespace MyGame
             {
                 h.Draw();
             }
-            _bullet?.Draw();
+            foreach (Bullet b in _bullets) b.Draw();
             _ship?.Draw();
             if (_ship != null)
             {
@@ -143,8 +162,7 @@ namespace MyGame
         public static void Load()
         {
             _objs = new BaseObject[30];
-            _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
-            _asteroids = new Asteroid[2];
+            _asteroids = new List<Asteroid>();
             _healings = new Healing[2];
             var rnd = new Random();
             int r;
@@ -153,10 +171,7 @@ namespace MyGame
                 r = rnd.Next(5, 50);
                 _objs[i] = new Star(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r, r), new Size(3, 3));
             }
-            r = rnd.Next(5, 200);
-            _asteroids[0] = new Ellipse(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r / 5, r), new Size(r, r));
-            r = rnd.Next(5, 200);
-            _asteroids[1] = new Mars(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r / 5, r), new Size(r, r));
+            AsteroidsInit();            
             for (var i = 0; i<_healings.Length;i++)
             {
                 r = rnd.Next(5, 50);
@@ -167,31 +182,43 @@ namespace MyGame
         public static void Update()
         {
             foreach (BaseObject obj in _objs) obj.Update();
-            _bullet?.Update();
+            foreach (Bullet b in _bullets) b.Update();
             foreach (Healing h in _healings) h.Update();
-            for (var i = 0; i < _asteroids.Length; i++)
+            for (var i = 0; i < _asteroids.Count; i++)
             {
                 if (_asteroids[i] == null) continue;
                 _asteroids[i].Update();
-                if (_bullet.Collision(_asteroids[i]))
-                {
-                    _bullet.Regeneration();
-                    continue;
-                }
-                if (_ship.Collision(_asteroids[i]))
+                if (_asteroids[i] == null || _ship.Collision(_asteroids[i]))
                 {
                     var rnd = new Random();
                     _ship?.Collide(rnd,_asteroids[i]);
                     System.Media.SystemSounds.Asterisk.Play();
                     if (_ship.Energy <= 0) _ship?.Die();
+                    _asteroids.RemoveAt(i);
                 }
-                if (_ship.Collision(_bullet))
+                for (int j = 0; j < _bullets.Count; j++)
                 {
-                    _bullet.Regeneration();
+                    if (_asteroids[i] != null && _bullets[j].Collision(_asteroids[i]))
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                        _asteroids[i] = null;
+                        //_bullets.RemoveAt(j);
+                        _bullets[j].Regeneration();
+                        j--;
+                    }
+                }
+
+            }
+            if (_asteroids.Count == 0) AsteroidsInit();
+            for (int j = 0; j < _bullets.Count; j++)
+            {
+                if (_ship.Collision(_bullets[j]))
+                {
                     System.Media.SystemSounds.Beep.Play();
                     _ship?.Die();
                 }
             }
+
             for (var i = 0; i < _healings.Length; i++)
             {
                 if (_healings[i] == null) continue;
@@ -204,6 +231,7 @@ namespace MyGame
                 }
             }
         }
+
         public static void CloseStream()
         {
             _stream_log.Close();
