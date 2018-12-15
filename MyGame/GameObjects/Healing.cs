@@ -7,12 +7,23 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
+    /// <summary>
+    /// Класс, представляющий объект аптечки.
+    /// </summary>
     class Healing : BaseObject
     {
-        public Healing(Point pos, Point dir, Size size) : base(pos, dir, size)
+        /// <summary>
+        /// Конструктор класса аптечки.
+        /// </summary>
+        /// <param name="pos">Верхняя левая точка аптечки.</param>
+        /// <param name="dir">Направление дивижения аптечки.</param>
+        /// <param name="size">Размер аптечки.</param>
+        public Healing(Point pos, Point dir, Size size) : base(pos, dir, size, "Аптечка")
         {
         }
-
+        /// <summary>
+        /// Рисует аптечку.
+        /// </summary>
         public override void Draw()
         {
             Game.Buffer.Graphics.DrawImage(Game.Images["Healing"], Pos.X, Pos.Y, Size.Width, Size.Height);
@@ -22,7 +33,9 @@ namespace MyGame
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Обновляет положение аптечки.
+        /// </summary>
         public override void Update()
         {
             Pos.X = Pos.X + 5 * Convert.ToInt32(Math.Sin(Convert.ToDouble(Dir.X)));
@@ -31,11 +44,6 @@ namespace MyGame
             if (Pos.Y > Game.Height + 300) Pos.Y = Size.Height;
             if (Pos.X < -300) Pos.X = Game.Width;
             if (Pos.Y < -300) Pos.Y = Game.Height;
-        }
-
-        public override string ToString()
-        {
-            return $"Аптечка";
         }
     }
 }

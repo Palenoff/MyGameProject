@@ -46,19 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asteroid.cs" />
-    <Compile Include="BaseObject.cs" />
-    <Compile Include="Bullet.cs" />
+    <Compile Include="GameObjects\Asteroid.cs" />
+    <Compile Include="GameObjects\BaseObject.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Action.cs" />
-    <Compile Include="Healing.cs" />
-    <Compile Include="GameObjectException.cs" />
+    <Compile Include="GameObjects\Healing.cs" />
+    <Compile Include="Exceptions\GameObjectException.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="ICollision.cs" />
-    <Compile Include="Log.cs" />
+    <Compile Include="Interfaces\ICollision.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ship.cs" />
-    <Compile Include="Star.cs" />
+    <Compile Include="GameObjects\Ship.cs" />
+    <Compile Include="GameObjects\Star.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -80,6 +79,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Asteroids\Венера.jpg" />
+    <Content Include="Images\Asteroids\Марс.jpg" />
+    <Content Include="Images\Asteroids\Нептун.jpg" />
+    <Content Include="Images\Asteroids\Плутон.jpg" />
+    <Content Include="Images\Asteroids\Сатурн.jpg" />
+    <Content Include="Images\Asteroids\Уран.jpg" />
+    <Content Include="Images\Asteroids\Юпитер.jpg" />
+    <Content Include="Images\Blast.gif" />
+    <Content Include="Images\Bullet.jpg" />
+    <Content Include="Images\Cat.jpg" />
+    <Content Include="Images\Healing.jpg" />
+    <Content Include="Images\Spaceship.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,34 +13,78 @@ namespace MyGame
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
+        /// <summary>
+        /// Массив объектов.
+        /// </summary>
         private static BaseObject[] _objs;
-        //private static Bullet _bullet;
+        /// <summary>
+        /// Список пуль.
+        /// </summary>
         private static List<Bullet> _bullets = new List<Bullet>();
+        /// <summary>
+        /// Список астероидов.
+        /// </summary>
         private static List<Asteroid> _asteroids;
+        /// <summary>
+        /// Текущее количество астероидов в игре.
+        /// </summary>
         private static int n_asteroids;
+        /// <summary>
+        /// Массив аптечек.
+        /// </summary>
         private static Healing[] _healings;
+        /// <summary>
+        /// Словарь картинок.
+        /// </summary>
         public static Dictionary<string, Image> Images;
+        /// <summary>
+        /// Словрь картиок для астероидов.
+        /// </summary>
         public static Dictionary<string, Image> Images_asteroids;
+        /// <summary>
+        /// Космический корабль.
+        /// </summary>
         private static Ship _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(100, 60));
+        /// <summary>
+        /// Таймер.
+        /// </summary>
         private static Timer _timer = new Timer();
+        /// <summary>
+        /// Генератор случайных чисел.
+        /// </summary>
         public static Random Rnd = new Random();
+        /// <summary>
+        /// Объект, предназначенный для записи потока в файл.
+        /// </summary>
         private static StreamWriter _stream_log = new StreamWriter("log.txt");
 
-        // Свойства
-        // Ширина и высота игрового поля
+        /// <summary>
+        /// Ширина игрового поля.
+        /// </summary>
         public static int Width { get; set; }
+        /// <summary>
+        /// Высота игрового поля.
+        /// </summary>
         public static int Height { get; set; }
 
         static Game()
         {
         }
-
+        /// <summary>
+        /// Обработчик срабатывания тика тймера
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
         }
-
+        /// <summary>
+        /// Обработчик нажатия на кнопку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
             //if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
@@ -51,14 +95,19 @@ namespace MyGame
             if (e.KeyCode == Keys.Left) _ship.Left();
             if (e.KeyCode == Keys.Right) _ship.Right();
         }
-
+        /// <summary>
+        /// Завершение игры.
+        /// </summary>
         public static void Finish()
         {
             _timer.Stop();
             Buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
             Buffer.Render();
         }
-
+        /// <summary>
+        /// Инициализация игры.
+        /// </summary>
+        /// <param name="form">Игровая форма</param>
         public static void Init(Form form)
         {
             try
@@ -110,9 +159,11 @@ namespace MyGame
             Ship.WriteIncreasePoints += Console.WriteLine;
             Ship.WriteIncreasePoints += _stream_log.WriteLine;
         }
-
-
-
+        /// <summary>
+        /// Инициализация картинок.
+        /// </summary>
+        /// <param name="path">Путь к директории расположения картинок.</param>
+        /// <returns></returns>
         private static Dictionary<string,Image> ImagesInit(string path)
         {
             Dictionary<string, Image> collection = new Dictionary<string, Image>();
@@ -121,7 +172,9 @@ namespace MyGame
                 collection[Path.GetFileNameWithoutExtension(file)] = Image.FromFile(file);
             return collection;
         }
-
+        /// <summary>
+        /// Инициализация списка астероидов.
+        /// </summary>
         private static void AsteroidsInit()
         {
             var rnd = new Random();
@@ -133,7 +186,9 @@ namespace MyGame
             }
             n_asteroids += 1;
         }
-
+        /// <summary>
+        /// Отрисовка объектов.
+        /// </summary>
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
@@ -158,7 +213,9 @@ namespace MyGame
 
 
         }
-
+        /// <summary>
+        /// Инициализация объектов.
+        /// </summary>
         public static void Load()
         {
             _objs = new BaseObject[30];
@@ -178,7 +235,9 @@ namespace MyGame
                 _healings[i] = new Healing(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r, r), new Size(50, 50));
             }
         }
-
+        /// <summary>
+        /// Обновление объектов.
+        /// </summary>
         public static void Update()
         {
             foreach (BaseObject obj in _objs) obj.Update();
@@ -231,7 +290,9 @@ namespace MyGame
                 }
             }
         }
-
+        /// <summary>
+        /// Закрытие файлового потока.
+        /// </summary>
         public static void CloseStream()
         {
             _stream_log.Close();

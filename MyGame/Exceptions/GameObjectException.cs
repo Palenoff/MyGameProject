@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    class GameObjectException: Exception
+    /// <summary>
+    /// Класс-обёртка пользовательского исключения.
+    /// </summary>
+    class GameObjectException : Exception
     {
         public GameObjectException() : base()
         { }
