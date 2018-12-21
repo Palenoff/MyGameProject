@@ -22,15 +22,26 @@ namespace Departments_and_Workers
     public partial class DepartmentWindow : Window
     {
         ObservableCollection<Department> _departments;
+        Department _department;
         public DepartmentWindow(ObservableCollection<Department> departments)
         {
             InitializeComponent();
             _departments = departments;
         }
-
-        private void AddDepartmentBtn_Click(object sender, RoutedEventArgs e)
+        public DepartmentWindow(ObservableCollection<Department> departments, Department department)
         {
-            _departments.Add(new Department(AddDepartmentTB.Text));
+            InitializeComponent();
+            _departments = departments;
+            _department = department;
+        }
+
+
+        private void SaveDepartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_department == null)
+                _departments.Add(new Department(DepartmentTB.Text));
+            else
+                _department.DepartmentName = DepartmentTB.Text;
             Close();
         }
     }

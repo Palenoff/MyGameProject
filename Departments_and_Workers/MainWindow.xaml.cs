@@ -23,63 +23,59 @@ namespace Departments_and_Workers
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Department> departments = new ObservableCollection<Department>()
+        private static ObservableCollection<Department> departments = new ObservableCollection<Department>()
         {
-            new Department("IT", new ObservableCollection<Employee>()
-            {
-                new Employee("Аркадий Васильевич", 28, 150, "Middle-программист"),
-                new Employee("Геннадий Геннадьевич", 30, 220, "Team-Lead"),
-                new Employee("Алексей Валерьевич", 35, 300, "Архитектор БД"),
-                new Employee("Степан Евграфович", 22, 100, "Junior-программист")
-            }),
-            new Department("Бухгалтерия", new ObservableCollection<Employee>()
-            {
-                new Employee("Анастасия Федотовна", 40, 150, "Главный бухгалтер"),
-                new Employee("Евгения Максимовна", 42, 70, "Бухгалтер"),
-                new Employee("Валерий Никифорович", 55, 130, "Заместитель главного бухгалтера")
-            })
+            new Department("IT", new ObservableCollection<Employee>()),
+            new Department("Бухгалтерия", new ObservableCollection<Employee>())
         };
+        private ObservableCollection<Employee> employees = new ObservableCollection<Employee>()
+        {
+            new Employee("Аркадий Васильевич", 28, 150, "Middle-программист", Departments, "IT"),
+            new Employee("Геннадий Геннадьевич", 30, 220, "Team-Lead", Departments, "IT"),
+            new Employee("Алексей Валерьевич", 35, 300, "Архитектор БД", Departments, "IT"),
+            new Employee("Степан Евграфович", 22, 100, "Junior-программист", Departments, "IT"),
+            new Employee("Анастасия Федотовна", 40, 150, "Главный бухгалтер", Departments, "Бухгалтерия"),
+            new Employee("Евгения Максимовна", 42, 70, "Бухгалтер", Departments, "Бухгалтерия"),
+            new Employee("Валерий Никифорович", 55, 130, "Заместитель главного бухгалтера", Departments, "Бухгалтерия")
+        };
+        public static ObservableCollection<Department> Departments { get => departments; set => departments = value; }
+        public ObservableCollection<Employee> Employees { get => employees; set => employees = value; }
+
         int _selected_department_index;
         private void UpdateListBox(object sender, EventArgs e)
         {
             _selected_department_index = (sender as ComboBox).SelectedIndex;
-            EmployeesLB.ItemsSource = departments[_selected_department_index].Employees.Select(x => x.Name);
-            departments[_selected_department_index].Employees.CollectionChanged += new NotifyCollectionChangedEventHandler(EmployeesCollectionChanged);
+            EmployeesLV.ItemsSource = (DepartmentsCB.SelectedItem as Department)?.Employees;
+            //Departments[_selected_department_index].Employees.CollectionChanged += new NotifyCollectionChangedEventHandler(EmployeesCollectionChanged);
         }
 
         public MainWindow()
         {
             InitializeComponent();
-            DepartmentsCB.ItemsSource = departments.Select(x => x.Name);
-            departments.CollectionChanged += new NotifyCollectionChangedEventHandler(DepartmentsCollectionChanged);
-        }
-
-        private void DepartmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            DepartmentsCB.ItemsSource = departments.Select(x => x.Name);
-        }
-
-        private void EmployeesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            EmployeesLB.ItemsSource = departments[_selected_department_index].Employees.Select(x => x.Name);
+            DataContext = this;
         }
 
         private void EmployeesLB_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            if (EmployeesLB.SelectedItem != null)
+            if (EmployeesLV.SelectedItem != null)
             {
-                new EmployeeWindow("Редактирование сотрудника",departments,DepartmentsCB.ItemsSource,_selected_department_index,departments[_selected_department_index].Employees[EmployeesLB.SelectedIndex]).Show();
+                new EmployeeWindow("Редактирование сотрудника", DataContext, Departments,DepartmentsCB.ItemsSource,_selected_department_index,Departments[_selected_department_index].Employees[EmployeesLV.SelectedIndex]).Show();
             }
         }
 
         private void AddEmployeeBtn_Click(object sender, RoutedEventArgs e)
         {
-            new EmployeeWindow("Создание сотрудника", departments, DepartmentsCB.ItemsSource, -1, new Employee()).Show();
+            new EmployeeWindow("Создание сотрудника", DataContext, Departments, DepartmentsCB.ItemsSource, -1, new Employee()).Show();
         }
 
         private void AddDepartmentBtn_Click(object sender, RoutedEventArgs e)
         {
-            new DepartmentWindow(departments).Show();
+            new DepartmentWindow(Departments).Show();
+        }
+
+        private void EditDepartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new DepartmentWindow(Departments,DepartmentsCB.SelectedItem as Department).Show();
         }
     }
 }

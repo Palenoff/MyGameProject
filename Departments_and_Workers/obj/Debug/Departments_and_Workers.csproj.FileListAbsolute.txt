@@ -1,7 +1,6 @@
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\bin\Debug\Departments_and_Workers.exe.config
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\bin\Debug\Departments_and_Workers.exe
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\bin\Debug\Departments_and_Workers.pdb
-D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\Departments_and_Workers.csprojAssemblyReference.cache
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\MainWindow.g.cs
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\App.g.cs
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\Departments_and_Workers_MarkupCompile.cache
@@ -17,3 +16,4 @@ D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\EmployeeWin
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\EmployeeWindow.baml
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\DepartmentWindow.g.cs
 D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\DepartmentWindow.baml
+D:\Users\kpale\source\repos\MyGame\Departments_and_Workers\obj\Debug\Departments_and_Workers.csprojAssemblyReference.cache

@@ -25,20 +25,19 @@ namespace Departments_and_Workers
     {
         Employee _employee;
         ObservableCollection<Department> _departments;
+
+        public Employee Employee { get => _employee; set => _employee = value; }
+        public ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-        public EmployeeWindow(string title,ObservableCollection<Department>departments,IEnumerable departments_source,int selected_department,Employee employee)
+        public EmployeeWindow(string title, object datacontext, ObservableCollection<Department>departments,IEnumerable departments_source,int selected_department,Employee employee)
         {
             InitializeComponent();
-            _employee = employee;
-            _departments = departments;
-            NameFNameTB.Text = _employee.Name;
-            AgeTB.Text = _employee.Age.ToString();
-            SalaryTB.Text = _employee.Salary.ToString();
-            PositionTB.Text = _employee.Position;
+            DataContext = Employee = employee;
             DepartmentsCB_Employees.ItemsSource = departments_source;
             DepartmentsCB_Employees.SelectedIndex = selected_department;
             Title = title;
@@ -51,17 +50,11 @@ namespace Departments_and_Workers
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            _employee.Name = NameFNameTB.Text;
-            _employee.Age = Int32.Parse(AgeTB.Text);
-            _employee.Salary = Int32.Parse(SalaryTB.Text);
-            _employee.Position = PositionTB.Text;
-            try
-            {
-                _departments.Single(x => x == _employee.Department)?.Employees.Remove(_employee);
-            }
-            catch (Exception ex) { }
-            _employee.Department = _departments.Single(x => x.Name == DepartmentsCB_Employees.Items[DepartmentsCB_Employees.SelectedIndex].ToString());
-            _departments.Single(x => x == _employee.Department).Employees.Add(_employee);
+            Employee.Name = NameFNameTB.Text;
+            Employee.Age = Int32.Parse(AgeTB.Text);
+            Employee.Salary = Int32.Parse(SalaryTB.Text);
+            Employee.Position = PositionTB.Text;
+            Employee.Department = DepartmentsCB_Employees.SelectedItem as Department;
             Close();
         }
     }

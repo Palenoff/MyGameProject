@@ -9,15 +9,21 @@
     <Grid x:Name="DepartmentsCB">
         <Button x:Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="111,325,0,0" Click="SaveBtn_Click"/>
         <Button x:Name="CancelBtn" Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="309,325,0,0" Click="CancelBtn_Click"/>
-        <TextBox x:Name="NameFNameTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,99,0,0"/>
-        <Label x:Name="NameFNameLbl" Content="Имя Очество" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,95,0,0"/>
-        <TextBox x:Name="AgeTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,139,0,0" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="NameFNameTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,99,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label x:Name="NameFNameLbl" Content="Имя Отчество" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,95,0,0"/>
+        <TextBox x:Name="AgeTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,139,0,0" PreviewTextInput="NumberValidationTextBox" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="AgeLbl" Content="Возраст" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,135,0,0"/>
-        <TextBox x:Name="SalaryTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,176,0,0" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="SalaryTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,176,0,0" PreviewTextInput="NumberValidationTextBox" Text="{Binding Salary, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="SalaryLbl" Content="Зарплата" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,172,0,0"/>
-        <TextBox x:Name="PositionTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,216,0,0"/>
+        <TextBox x:Name="PositionTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,216,0,0" Text="{Binding Position, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="PositionLbl" Content="Должность" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,212,0,0"/>
-        <ComboBox x:Name="DepartmentsCB_Employees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="220,263,0,0"/>
+        <ComboBox x:Name="DepartmentsCB_Employees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="220,263,0,0"  ItemsSource="{Binding Departments}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DepartmentName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label x:Name="DepartmentLbl" Content="Департамент" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,263,0,0"/>
 
     </Grid>

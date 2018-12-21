@@ -1,7 +1,6 @@
 D:\Users\kpale\source\repos\MyGame\Linq_Example\bin\Debug\Linq_Example.exe.config
 D:\Users\kpale\source\repos\MyGame\Linq_Example\bin\Debug\Linq_Example.exe
 D:\Users\kpale\source\repos\MyGame\Linq_Example\bin\Debug\Linq_Example.pdb
-D:\Users\kpale\source\repos\MyGame\Linq_Example\obj\Debug\Linq_Example.csprojAssemblyReference.cache
 D:\Users\kpale\source\repos\MyGame\Linq_Example\obj\Debug\Linq_Example.csproj.CoreCompileInputs.cache
 D:\Users\kpale\source\repos\MyGame\Linq_Example\obj\Debug\Linq_Example.exe
 D:\Users\kpale\source\repos\MyGame\Linq_Example\obj\Debug\Linq_Example.pdb
