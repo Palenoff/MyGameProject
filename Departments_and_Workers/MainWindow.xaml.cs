@@ -75,7 +75,7 @@ namespace Departments_and_Workers
 
         private void EditDepartmentBtn_Click(object sender, RoutedEventArgs e)
         {
-            new DepartmentWindow(Departments,DepartmentsCB.SelectedItem as Department).Show();
+            new DepartmentWindow(DepartmentsCB.SelectedItem as Department).Show();
         }
     }
 }

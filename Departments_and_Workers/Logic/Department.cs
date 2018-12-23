@@ -38,7 +38,7 @@ namespace Departments_and_Workers.Logic
                 if (_name != value)
                 {
                     _name = value;
-                    this.NotifyPropertyChanged("Name");
+                    this.NotifyPropertyChanged("DepartmentName");
                 }
             }
         }

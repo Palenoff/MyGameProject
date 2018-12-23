@@ -28,13 +28,11 @@ namespace Departments_and_Workers
             InitializeComponent();
             _departments = departments;
         }
-        public DepartmentWindow(ObservableCollection<Department> departments, Department department)
+        public DepartmentWindow(Department department)
         {
             InitializeComponent();
-            _departments = departments;
             _department = department;
         }
-
 
         private void SaveDepartmentBtn_Click(object sender, RoutedEventArgs e)
         {
