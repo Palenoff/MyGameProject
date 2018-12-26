@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,7 @@ namespace Departments_and_Workers
     {
         Employee _employee;
         ObservableCollection<Department> _departments;
+        public DataRow Row { get; set; }
 
         public Employee Employee { get => _employee; set => _employee = value; }
         public ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
@@ -43,19 +45,45 @@ namespace Departments_and_Workers
             Title = title;
         }
 
+        public EmployeeWindow(DataRow Row, IEnumerable departments_source)
+        {
+            InitializeComponent();
+            this.Row = Row;
+            this.DataContext = Row;
+            DepartmentsCB_Employees.DataContext = departments_source;
+            DepartmentsCB_Employees.ItemsSource = departments_source;
+        }
+
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.DialogResult = false;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            Employee.Name = NameFNameTB.Text;
-            Employee.Age = Int32.Parse(AgeTB.Text);
-            Employee.Salary = Int32.Parse(SalaryTB.Text);
-            Employee.Position = PositionTB.Text;
-            Employee.Department = DepartmentsCB_Employees.SelectedItem as Department;
-            Close();
+            //Employee.Name = NameFNameTB.Text;
+            //Employee.Age = Int32.Parse(AgeTB.Text);
+            //Employee.Salary = Int32.Parse(SalaryTB.Text);
+            //Employee.Position = PositionTB.Text;
+            //Employee.Department = DepartmentsCB_Employees.SelectedItem as Department;
+
+
+            Row["Age"] = Int32.Parse(AgeTB.Text);
+            Row["Name"] = NameFNameTB.Text;
+            Row["Salary"] = Int32.Parse(SalaryTB.Text);
+            Row["Position"] = PositionTB.Text;
+            Row["Department"] = DepartmentsCB_Employees.SelectedItem; //тут должен быть ключ, но я хз как его взять
+            this.DialogResult = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            AgeTB.Text = Row["Age"].ToString();
+            NameFNameTB.Text = Row["Name"].ToString();
+            SalaryTB.Text = Row["Salary"].ToString();
+            PositionTB.Text = Row["Position"].ToString();
+            DepartmentsCB_Employees.SelectedItem = Row["Department"]; //тут должен быть ключ, но я хз как его взять из комбобокса
+
         }
     }
 }

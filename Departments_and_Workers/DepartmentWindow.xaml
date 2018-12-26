@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Departments_and_Workers"
         mc:Ignorable="d"
-        Title="Добавление_департамента" Height="300" Width="400">
+        Title="Добавление_департамента" Height="300" Width="400"
+        Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="SaveDepartmentBtn" Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="179,181,0,0" Click="SaveDepartmentBtn_Click"/>
         <Label x:Name="DepartmentLbl" Content="Имя департамента" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,105,0,0"/>

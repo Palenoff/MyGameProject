@@ -1,7 +1,9 @@
 ﻿using Departments_and_Workers.Logic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,25 +24,36 @@ namespace Departments_and_Workers
     public partial class DepartmentWindow : Window
     {
         ObservableCollection<Department> _departments;
-        Department _department;
-        public DepartmentWindow(ObservableCollection<Department> departments)
-        {
-            InitializeComponent();
-            _departments = departments;
-        }
+        public DataRow Row { get; set; }
+
         public DepartmentWindow(Department department)
         {
             InitializeComponent();
-            _department = department;
         }
+
+        public DepartmentWindow(DataRow row)
+        {
+            this.Row = row;
+        }
+
+
 
         private void SaveDepartmentBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (_department == null)
-                _departments.Add(new Department(DepartmentTB.Text));
-            else
-                _department.DepartmentName = DepartmentTB.Text;
-            Close();
+            Row["Name"] = DepartmentTB.Text;
+            this.DialogResult = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //DepartmentTB.Text = Row["Name"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Departments_and_Workers"
         mc:Ignorable="d"
-        Title="Редактирование информации о сотруднике" Height="450" Width="524.107">
+        Title="Редактирование информации о сотруднике" Height="450" Width="524.107"
+        Loaded="Window_Loaded">
     <Grid x:Name="DepartmentsCB">
         <Button x:Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="111,325,0,0" Click="SaveBtn_Click"/>
-        <Button x:Name="CancelBtn" Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="309,325,0,0" Click="CancelBtn_Click"/>
+        <Button x:Name="CancelBtn" Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="337,325,0,0" Click="CancelBtn_Click"/>
         <TextBox x:Name="NameFNameTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,99,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="NameFNameLbl" Content="Имя Отчество" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,95,0,0"/>
         <TextBox x:Name="AgeTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,139,0,0" PreviewTextInput="NumberValidationTextBox" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>

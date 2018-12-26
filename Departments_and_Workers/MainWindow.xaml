@@ -8,16 +8,16 @@
         Title="База данных департаментов и отделов" Height="450" Width="800">
     <Grid>
         <Label x:Name="HeadingLbl" Content="База данных сотрудников и департаментов" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="151,33,150,0" Height="57" Width="491" FontSize="24"/>
-        <ComboBox x:Name="DepartmentsCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="43,141,0,0"  SelectionChanged="UpdateListBox" ItemsSource="{Binding Departments, Mode=TwoWay}">
+        <ComboBox x:Name="DepartmentsCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="43,141,0,0"  SelectionChanged="UpdateListBox">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DepartmentName, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding Name, Mode=TwoWay}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Label x:Name="DepartmentsLbl" Content="Департамент" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,94,0,0" FontSize="22"/>
         <Label x:Name="WorkerssLbl" Content="Сотрудники" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,95,0,0" FontSize="22"/>
-        <ListView x:Name="EmployeesLV" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="392" Margin="355,147,0,0" MouseDoubleClick="EmployeesLB_MouseDoubleClick">
+        <ListView x:Name="EmployeesLV" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="392" Margin="355,147,0,0" MouseDoubleClick="EmployeesLV_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Имя" 
@@ -35,6 +35,7 @@
             </ListView.View>
         </ListView>
         <Button x:Name="AddEmployeeBtn" Content="Добавить сотрудника" Margin="355,317,307,70" Click="AddEmployeeBtn_Click"/>
+        <Button x:Name="DeleteEmployeeBtn" Content="Удалить сотрудника" Margin="540,317,122,70" Click="DeleteEmployeeBtn_Click"/>
         <Button x:Name="AddDepartmentBtn" Content="Добавить департамент" Margin="43,234,585,153" Click="AddDepartmentBtn_Click"/>
         <Button x:Name="EditDepartmentBtn" Content="Редактировать департамент" Margin="43,184,585,203" Click="EditDepartmentBtn_Click"/>
     </Grid>
