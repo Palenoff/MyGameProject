@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,7 +28,7 @@ namespace Departments_and_Workers
         Employee _employee;
         ObservableCollection<Department> _departments;
         public DataRow Row { get; set; }
-
+        public DataRow DepartmentRow { get; set; }
         public Employee Employee { get => _employee; set => _employee = value; }
         public ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
 
@@ -45,13 +46,14 @@ namespace Departments_and_Workers
             Title = title;
         }
 
-        public EmployeeWindow(DataRow Row, IEnumerable departments_source)
+        public EmployeeWindow(DataRow Row, DataRow department, DataView dataView, SqlDataAdapter sqlDataAdapter)
         {
             InitializeComponent();
             this.Row = Row;
             this.DataContext = Row;
-            DepartmentsCB_Employees.DataContext = departments_source;
-            DepartmentsCB_Employees.ItemsSource = departments_source;
+            DepartmentRow = department;
+            DepartmentsCB_Employees.ItemsSource = dataView;
+            sqlDataAdapter.Fill(DepartmentRow.Table);
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -82,7 +84,9 @@ namespace Departments_and_Workers
             NameFNameTB.Text = Row["Name"].ToString();
             SalaryTB.Text = Row["Salary"].ToString();
             PositionTB.Text = Row["Position"].ToString();
-            DepartmentsCB_Employees.SelectedItem = Row["Department"]; //тут должен быть ключ, но я хз как его взять из комбобокса
+            DataRow[] arr = DepartmentRow.Table.Select($"ID = {Row["Department"]}");
+            Console.WriteLine(arr[0]["Name"]);
+            //DepartmentsCB_Employees.SelectedItem = arr[0]["Name"]; //тут должен быть ключ, но я хз как его взять из комбобокса
 
         }
     }

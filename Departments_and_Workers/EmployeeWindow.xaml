@@ -18,13 +18,7 @@
         <Label x:Name="SalaryLbl" Content="Зарплата" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,172,0,0"/>
         <TextBox x:Name="PositionTB" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="220,216,0,0" Text="{Binding Position, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="PositionLbl" Content="Должность" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,212,0,0"/>
-        <ComboBox x:Name="DepartmentsCB_Employees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="220,263,0,0"  ItemsSource="{Binding Departments}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding DepartmentName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <ComboBox x:Name="DepartmentsCB_Employees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="220,263,0,0"  ItemsSource="{Binding Departments}"/>
         <Label x:Name="DepartmentLbl" Content="Департамент" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,263,0,0"/>
 
     </Grid>

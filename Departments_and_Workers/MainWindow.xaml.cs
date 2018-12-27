@@ -47,14 +47,9 @@ namespace Departments_and_Workers
         static string connectionString = @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = Lesson7; Integrated Security = True";
         SqlConnection connection = new SqlConnection(connectionString);
 
-        int _selected_department_index;
         private void UpdateListBox(object sender, EventArgs e)
         {
-            _selected_department_index = (sender as ComboBox).SelectedIndex;
-            //DataRowView dataRowView = (sender as ComboBox).SelectedItem as DataRowView;
-            //DataRow dataRow = dataRowView.Row;
-            //int c = dataRow.Field<int>("id");
-            DataRow [] arr = ds.Tables["People"].Select($"Department = {_selected_department_index + 1}");
+            DataRow [] arr = ds.Tables["People"].Select($"Department = {((sender as ComboBox).SelectedItem as DataRowView).Row["ID"]}");
             EmployeesLV.ItemsSource = arr.CopyToDataTable().DefaultView;
         }
 
@@ -149,7 +144,7 @@ namespace Departments_and_Workers
 
 
             adapterDepartments = new SqlDataAdapter();
-            command = new SqlCommand("SELECT Name FROM Departments", connection);
+            command = new SqlCommand("SELECT * FROM Departments", connection);
             adapterDepartments.SelectCommand = command;
             // insert
             command = new SqlCommand("INSERT INTO Departments (Name) VALUES (@Name); SET @ID = @@IDENTITY;", connection);
@@ -173,14 +168,10 @@ namespace Departments_and_Workers
 
             #endregion
 
-            DataContext = ds.Tables["Departments"].DefaultView;
+            //DataContext = ds.Tables["Departments"].DefaultView;
             //DepartmentsCB.DataContext = ds.Tables["Departments"].DefaultView;
             //DepartmentsCB.ItemsSource = ds.Tables["Departments"].Rows[];
             DepartmentsCB.ItemsSource = ds.Tables["Departments"].DefaultView;
-
-
-
-
 
 
 
@@ -201,7 +192,7 @@ namespace Departments_and_Workers
         {
             DataRowView newRow = (DataRowView)EmployeesLV.SelectedItem;
             newRow.BeginEdit();
-            EmployeeWindow editWindow = new EmployeeWindow(newRow.Row, DepartmentsCB.ItemsSource);
+            EmployeeWindow editWindow = new EmployeeWindow(newRow.Row, (DepartmentsCB.SelectedItem as DataRowView).Row, ds.Tables["Departments"].DefaultView, adapterDepartments);
             editWindow.ShowDialog();
             if (editWindow.DialogResult.HasValue && editWindow.DialogResult.Value)
             {
@@ -219,7 +210,7 @@ namespace Departments_and_Workers
             //new EmployeeWindow("Создание сотрудника", DataContext, Departments, DepartmentsCB.ItemsSource, -1, new Employee()).Show();
             // Добавим новую строку
             DataRow newRow = ds.Tables["People"].NewRow();
-            EmployeeWindow editWindow = new EmployeeWindow(newRow, DepartmentsCB.ItemsSource);
+            EmployeeWindow editWindow = new EmployeeWindow(newRow, (DepartmentsCB.SelectedItem as DataRowView).Row, ds.Tables["Departments"].DefaultView, adapterDepartments);
             editWindow.ShowDialog();
             if (editWindow.DialogResult.HasValue && editWindow.DialogResult.Value)
             {
