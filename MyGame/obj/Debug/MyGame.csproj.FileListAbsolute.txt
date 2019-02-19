@@ -1,9 +1,9 @@
-D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.exe.config
-D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.exe
-D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.pdb
-D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.csprojAssemblyReference.cache
 D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.Properties.Resources.resources
 D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.csproj.GenerateResource.cache
 D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.csproj.CoreCompileInputs.cache
+D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.exe.config
+D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.exe
+D:\Users\kpale\source\repos\MyGame\MyGame\bin\Debug\MyGame.pdb
 D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.exe
 D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.pdb
+D:\Users\kpale\source\repos\MyGame\MyGame\obj\Debug\MyGame.csprojAssemblyReference.cache

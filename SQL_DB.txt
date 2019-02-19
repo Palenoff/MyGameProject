@@ -1,0 +1,26 @@
+CREATE TABLE[dbo].[People] (
+	[Id] INT IDENTITY(1, 1) NOT NULL,
+	[Name] NVARCHAR(MAX) COLLATE Cyrillic_General_CI_AS NOT NULL,
+	[Age] INT NULL,
+	[Salary] INT NULL,
+	[Position]  NVARCHAR(MAX) NULL,
+	[Department] INT NOT NULL,
+	CONSTRAINT[PK_dbo.People] PRIMARY KEY CLUSTERED([Id] ASC)
+)
+
+INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Аркадий Васильевич', '28', '150', N'Middle-программист', '1' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Геннадий Геннадьевич', '30', '220', 'Team-Lead', '1' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Алексей Валерьевич', '35', '300', N'Архитектор БД', '1' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Степан Евграфович', '22', '100', N'Junior-программист', '1' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Анастасия Федотовна', '40', '150', N'Главный бухгалтер', '2' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Евгения Максимовна', '42', '70', N'Бухгалтер', '2' );
+                                     INSERT INTO People (Name, Age,Salary,Position,Department) VALUES ( N'Валерий Никифорович', '55', '130', N'Заместитель главного бухгалтера', '2' );
+
+CREATE TABLE [dbo].[Departments] (
+    [Id]   INT            IDENTITY (1, 1) NOT NULL,
+    [Name] NVARCHAR (MAX) COLLATE Cyrillic_General_CI_AS NOT NULL,
+    CONSTRAINT [PK_dbo.Departments] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+INSERT INTO Departments (Name) VALUES ('IT');
+INSERT INTO Departments (Name) VALUES ('Бухгалтерия');
